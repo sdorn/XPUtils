@@ -192,7 +192,7 @@ public class CBserver implements IMessage {
 
 	@Override
 	public void MessageEvent(Message message) {
-		// TODO Auto-generated method stub
+		action.NewMessage(message);
 
 	}
 

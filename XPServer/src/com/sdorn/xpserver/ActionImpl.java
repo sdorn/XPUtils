@@ -37,6 +37,7 @@ public class ActionImpl implements Action1<WampClient.State> {
         this.client = client;
         this.rxScheduler = rxScheduler;
         setSubString(PROPERTIES.getProperty(PREFIX + ".subscription")); 
+        LOG.info(getSubString());
     }
 
     public ActionImpl() {
