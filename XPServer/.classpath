@@ -18,5 +18,6 @@
 	<classpathentry exported="true" kind="lib" path="C:/Users/siegf/.m2/repository/io/netty/netty-common/4.0.24.Final/netty-common-4.0.24.Final.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/siegf/.m2/repository/io/netty/netty-handler/4.0.24.Final/netty-handler-4.0.24.Final.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/siegf/.m2/repository/io/netty/netty-transport/4.0.24.Final/netty-transport-4.0.24.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/siegf/.m2/repository/io/netty/netty-codec-http/4.0.24.Final/netty-codec-http-4.0.24.Final.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
