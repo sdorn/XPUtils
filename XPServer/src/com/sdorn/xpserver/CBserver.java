@@ -81,8 +81,11 @@ public class CBserver implements IMessage {
 			udpserver = new UdpServer(this);
 			udpserver.start();
 			WampClientBuilder builder = new WampClientBuilder();
-			builder.withConnectorProvider(connectorProvider).withUri(url).withRealm(realm).withInfiniteReconnects()
-					.withReconnectInterval(1, TimeUnit.SECONDS);
+			builder.withConnectorProvider(connectorProvider)
+				.withUri(url)
+				.withRealm(realm)
+				.withInfiniteReconnects()
+				.withReconnectInterval(1, TimeUnit.SECONDS);
 
 			client = builder.build();
 			action = new ActionImpl(client, rxScheduler);
@@ -94,8 +97,11 @@ public class CBserver implements IMessage {
 			LOG.error(ex.getMessage(), ex);
 		}
 
-		client.statusChanged().observeOn(rxScheduler).subscribe(action, new Action1<Throwable>() {
-			@Override
+		client.statusChanged()
+			.observeOn(rxScheduler)
+			.subscribe(action, new Action1<Throwable>() {
+			
+				@Override
 			public void call(Throwable t) {
 				LOG.info("Session ended with error " + t);
 			}
@@ -105,6 +111,7 @@ public class CBserver implements IMessage {
 				LOG.info("Session ended normally");
 			}
 		});
+		
 		client.open();
 
 		System.out.println("Shutting down");
