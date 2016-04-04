@@ -65,7 +65,7 @@ public class UdpServer extends Thread {
             while (!isInterrupted()) {
                 // Wait to receive a datagram
                 dsocket.receive(packet);
-                System.out.println("Packet Length: " + packet.getLength());
+                LOG.info("Packet Length: " + packet.getLength());
                 Message[] m = parsePacket(packet);
                 for (Message m1 : m) {
                     event.MessageEvent(m1);
@@ -75,7 +75,7 @@ public class UdpServer extends Thread {
             }
         } catch (Exception e) {
             interrupt();
-            System.err.println(e);
+            LOG.error(e.getMessage(), e);;
             dsocket.close();           
         }
         dsocket.close();

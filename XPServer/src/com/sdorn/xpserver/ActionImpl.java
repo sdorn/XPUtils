@@ -45,7 +45,7 @@ public class ActionImpl implements Action1<WampClient.State> {
 
     @Override
     public void call(WampClient.State t1) {
-        System.out.println("Session status changed to " + t1);
+        LOG.info("Session status changed to " + t1);
 
         if (t1 instanceof WampClient.ConnectedState) {
             // SUBSCRIBE to a topic and receive events
@@ -55,17 +55,17 @@ public class ActionImpl implements Action1<WampClient.State> {
                     .subscribe(new Action1<Message>() {
                         @Override
                         public void call(Message mess) {
-                            System.out.println("event for 'xppos' received: " + mess.toString());
+                        	LOG.info("event for 'xppos' received: " + mess.toString());
                         }
                     }, new Action1<Throwable>() {
                         @Override
                         public void call(Throwable e) {
-                            System.out.println("failed to subscribe 'xppos': " + e);
+                        	LOG.info("failed to subscribe 'xppos': " + e);
                         }
                     }, new Action0() {
                         @Override
                         public void call() {
-                            System.out.println("'xppos' subscription ended");
+                        	LOG.info("'xppos' subscription ended");
                         }
                     });
 
@@ -97,12 +97,12 @@ public class ActionImpl implements Action1<WampClient.State> {
                         .subscribe(new Action1<Long>() {
                             @Override
                             public void call(Long t1) {
-                                System.out.println("published " + m.toString());
+                            	LOG.info("published " + m.toString());
                             }
                         }, new Action1<Throwable>() {
                             @Override
                             public void call(Throwable e) {
-                                System.out.println("Error during publishing to 'oncounter': " + e);
+                                LOG.info("Error during publishing to 'oncounter': " + e);
                             }
                         });
             }
