@@ -5,6 +5,7 @@
  */
 package com.sdorn.xpserver;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
@@ -114,6 +115,7 @@ public class CBserver implements IMessage {
 		
 		client.open();
 
+		waitUntilKeypressed();
 		System.out.println("Shutting down");
 		udpserver.interrupt();
 		action.closeSubscriptions();
@@ -128,6 +130,17 @@ public class CBserver implements IMessage {
 		}
 
 	}
+	
+	 private void waitUntilKeypressed() {
+	        try {
+	            System.in.read();
+	            while (System.in.available() > 0) {
+	                System.in.read();
+	            }
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
 
 	public void startRouter() {
 		try {
