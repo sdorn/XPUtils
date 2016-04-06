@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package com.sdorn.xpserver;
 
 import java.util.Properties;
@@ -33,6 +36,12 @@ public class ActionImpl implements Action1<WampClient.State> {
     Message mess = new Message();
     Action0 action25;
 
+    /**
+     * Instantiates a new action impl.
+     *
+     * @param client the client
+     * @param rxScheduler the rx scheduler
+     */
     public ActionImpl(WampClient client, Scheduler rxScheduler) {
         this.client = client;
         this.rxScheduler = rxScheduler;
@@ -40,10 +49,16 @@ public class ActionImpl implements Action1<WampClient.State> {
         LOG.info(getSubString());
     }
 
+    /**
+     * Instantiates a new action impl.
+     */
     public ActionImpl() {
     	
     }
 
+    /* (non-Javadoc)
+     * @see rx.functions.Action1#call(java.lang.Object)
+     */
     @Override
     public void call(WampClient.State t1) {
         LOG.info("Session status changed to " + t1);
@@ -76,6 +91,11 @@ public class ActionImpl implements Action1<WampClient.State> {
         }
     }
 
+    /**
+     * New message.
+     *
+     * @param mess the mess
+     */
     public void NewMessage(Message mess) {
        
         final Message m = new Message(mess.Header, 
@@ -90,6 +110,10 @@ public class ActionImpl implements Action1<WampClient.State> {
                                         mess.f8);
        
         xpmessage = rxScheduler.createWorker().schedule(new Action0() {
+            
+            /* (non-Javadoc)
+             * @see rx.functions.Action0#call()
+             */
             @Override
             public void call() {
                 
@@ -110,6 +134,9 @@ public class ActionImpl implements Action1<WampClient.State> {
         });
     }
 
+    /**
+     * Close subscriptions.
+     */
     void closeSubscriptions() {
         if (onHelloSubscription != null) {
             onHelloSubscription.unsubscribe();
@@ -122,10 +149,20 @@ public class ActionImpl implements Action1<WampClient.State> {
 
     }
 
+	/**
+	 * Gets the sub string.
+	 *
+	 * @return the sub string
+	 */
 	public String getSubString() {
 		return SubString;
 	}
 
+	/**
+	 * Sets the sub string.
+	 *
+	 * @param subString the new sub string
+	 */
 	public void setSubString(String subString) {
 		SubString = subString;
 	}

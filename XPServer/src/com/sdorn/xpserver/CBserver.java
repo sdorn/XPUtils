@@ -55,18 +55,33 @@ public class CBserver implements IMessage {
 	private WampClient client;
 	private UdpServer udpserver;
 
+	/**
+	 * Instantiates a new c bserver.
+	 */
 	public CBserver() {
 		setUrl(PROPERTIES.getProperty(PREFIX + ".url"));
 		setRealm(PROPERTIES.getProperty(PREFIX + ".realm"));
 		setS_uri(PROPERTIES.getProperty(PREFIX + ".serveruri"));
 	}
 
+	/**
+	 * Instantiates a new c bserver.
+	 *
+	 * @param url the url
+	 * @param realm the realm
+	 */
 	public CBserver(String url, String realm) {
 		this.url = url;
 		this.realm = realm;
 
 	}
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 * @throws Exception the exception
+	 */
 	public static void main(String[] args) throws Exception {
 		if (args.length != 2) {
 			new CBserver().run();
@@ -74,7 +89,10 @@ public class CBserver implements IMessage {
 			new CBserver(args[0], args[1]).run();
 		}
 	}
-
+	
+	/**
+	 *  Run until keypressd.
+	 */
 	void run() {
 		try {
 
@@ -131,7 +149,10 @@ public class CBserver implements IMessage {
 
 	}
 	
-	 private void waitUntilKeypressed() {
+	 /**
+ 	 * Wait until keypressed.
+ 	 */
+ 	private void waitUntilKeypressed() {
 	        try {
 	            System.in.read();
 	            while (System.in.available() > 0) {
@@ -142,6 +163,9 @@ public class CBserver implements IMessage {
 	        }
 	    }
 
+	/**
+	 * Start router.
+	 */
 	public void startRouter() {
 		try {
 			WampRouterBuilder routerBuilder = new WampRouterBuilder();
@@ -166,30 +190,63 @@ public class CBserver implements IMessage {
 
 	}
 
+	/**
+	 * Gets the url.
+	 *
+	 * @return the url
+	 */
 	public String getUrl() {
 		return url;
 	}
 
+	/**
+	 * Sets the url.
+	 *
+	 * @param url the new url
+	 */
 	public void setUrl(String url) {
 		this.url = url;
 	}
 
+	/**
+	 * Gets the realm.
+	 *
+	 * @return the realm
+	 */
 	public String getRealm() {
 		return realm;
 	}
 
+	/**
+	 * Sets the realm.
+	 *
+	 * @param realm the new realm
+	 */
 	public void setRealm(String realm) {
 		this.realm = realm;
 	}
 
+	/**
+	 * Gets the s_uri.
+	 *
+	 * @return the s_uri
+	 */
 	public String getS_uri() {
 		return s_uri;
 	}
 
+	/**
+	 * Sets the s_uri.
+	 *
+	 * @param s_uri the new s_uri
+	 */
 	public void setS_uri(String s_uri) {
 		this.s_uri = s_uri;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.sdorn.xpserver.IMessage#MessageEvent(com.sdorn.xpserver.Message)
+	 */
 	@Override
 	public void MessageEvent(Message message) {
 		action.NewMessage(message);

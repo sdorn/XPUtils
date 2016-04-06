@@ -14,38 +14,65 @@ import org.apache.log4j.Logger;
 
 import com.sdo.utils.properties.PropertyLoader;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class UdpServer.
  *
  * @author siegf
  */
 public class UdpServer extends Thread {
 
+	/** The Constant LOG. */
 	private static final Logger LOG = Logger.getLogger(UdpServer.class.getName());
+	
+	/** The Constant DIR. */
 	public static final String DIR = System.getProperty("user.dir");
+	
+	/** The Constant PREFIX. */
 	public static final String PREFIX = UdpServer.class.getCanonicalName();
+	
+	/** The Constant PROPS. */
 	public static final String PROPS = "config/cbserver";
+	
+	/** The Constant PROPERTIES. */
 	public static final Properties PROPERTIES = PropertyLoader.loadProperties(PROPS, PREFIX);
 	
+    /** The port. */
     private int port = 49000;
+    
+    /** The event. */
     private IMessage event;
+    
+    /** The dsocket. */
     private DatagramSocket dsocket;
 
     
     
     /**
-	 * @param vallback
-	 */
+     * Instantiates a new udp server.
+     *
+     * @param callback the callback
+     */
 	public UdpServer(IMessage callback) {
 		setPort(Integer.parseInt(PROPERTIES.getProperty(PREFIX + ".port")));
 		LOG.info("Start UDP Server, listen on :" + getPort());
 		event = callback;
 	}
 
+	/**
+	 * Instantiates a new udp server.
+	 *
+	 * @param p the p
+	 * @param callback the callback
+	 */
 	public UdpServer(int p, IMessage callback) {
         this.port = p;
         event = callback;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Thread#run()
+     */
     @Override
     public void run() {
 
@@ -81,6 +108,13 @@ public class UdpServer extends Thread {
         dsocket.close();
     }
 
+    /**
+     * Byte2 float.
+     *
+     * @param inData the in data
+     * @param byteSwap the byte swap
+     * @return the float[]
+     */
     // byte2Float method - extracts floats from byte array
     public static final float[] byte2Float(byte[] inData, boolean byteSwap) {
         int j = 0, value;
@@ -109,14 +143,30 @@ public class UdpServer extends Thread {
         return outData;
     }
 
+    /**
+     * Gets the port.
+     *
+     * @return the port
+     */
     public int getPort() {
         return port;
     }
 
+    /**
+     * Sets the port.
+     *
+     * @param port the new port
+     */
     public void setPort(int port) {
         this.port = port;
     }
 
+    /**
+     * Parses the packet.
+     *
+     * @param packet the packet
+     * @return the message[]
+     */
     public Message[] parsePacket(DatagramPacket packet) {
         int p_len = packet.getLength();
         p_len = (p_len - 23) / 36;
