@@ -36,22 +36,66 @@ public class EachLaunchFileAppender extends FileAppender {
 
         private int maxLogArchives = 5;
 
+        /**
+		 * Instantiates a new each launch file appender.
+		 */
         public EachLaunchFileAppender() {
         }
 
+        /**
+		 * Instantiates a new each launch file appender.
+		 *
+		 * @param pLayout
+		 *            the layout
+		 * @param filename
+		 *            the filename
+		 * @throws IOException
+		 *             Signals that an I/O exception has occurred.
+		 */
         public EachLaunchFileAppender(Layout pLayout, String filename) throws IOException {
                 super(pLayout, filename);
         }
 
+        /**
+		 * Instantiates a new each launch file appender.
+		 *
+		 * @param pLayout
+		 *            the layout
+		 * @param filename
+		 *            the filename
+		 * @param append
+		 *            the append
+		 * @throws IOException
+		 *             Signals that an I/O exception has occurred.
+		 */
         public EachLaunchFileAppender(Layout pLayout, String filename, boolean append) throws IOException {
                 super(pLayout, filename, append);
         }
 
+        /**
+		 * Instantiates a new each launch file appender.
+		 *
+		 * @param pLayout
+		 *            the layout
+		 * @param filename
+		 *            the filename
+		 * @param append
+		 *            the append
+		 * @param pBufferedIO
+		 *            the buffered io
+		 * @param pBufferSize
+		 *            the buffer size
+		 * @throws IOException
+		 *             Signals that an I/O exception has occurred.
+		 */
         public EachLaunchFileAppender(Layout pLayout, String filename, boolean append, boolean pBufferedIO,
                                                                   int pBufferSize) throws IOException {
                 super(pLayout, filename, append, pBufferedIO, pBufferSize);
         }
 
+        /* (non-Javadoc)
+         * @see org.apache.log4j.FileAppender#activateOptions()
+         */
         public void activateOptions() {
                 if (fileName != null) {
                         try {
@@ -145,10 +189,21 @@ public class EachLaunchFileAppender extends FileAppender {
 
 
 
+        /**
+		 * Gets the max log archives.
+		 *
+		 * @return the max log archives
+		 */
         public int getMaxLogArchives() {
                 return maxLogArchives;
         }
 
+        /**
+		 * Sets the max log archives.
+		 *
+		 * @param pMaxLogArchives
+		 *            the new max log archives
+		 */
         public void setMaxLogArchives(int pMaxLogArchives) {
                 maxLogArchives = pMaxLogArchives;
         }
