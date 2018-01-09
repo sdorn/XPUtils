@@ -93,6 +93,7 @@ public class UdpServer extends Thread {
                 // Wait to receive a datagram
                 dsocket.receive(packet);
                 LOG.info("Packet Length: " + packet.getLength());
+                LOG.info("Packet Data: " + packet.getData());
                 Message[] m = parsePacket(packet);
                 for (Message m1 : m) {
                     event.MessageEvent(m1);

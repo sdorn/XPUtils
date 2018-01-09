@@ -67,8 +67,10 @@ public class CBserver implements IMessage {
 	/**
 	 * Instantiates a new c bserver.
 	 *
-	 * @param url the url
-	 * @param realm the realm
+	 * @param url
+	 *            the url
+	 * @param realm
+	 *            the realm
 	 */
 	public CBserver(String url, String realm) {
 		this.url = url;
@@ -79,8 +81,10 @@ public class CBserver implements IMessage {
 	/**
 	 * The main method.
 	 *
-	 * @param args the arguments
-	 * @throws Exception the exception
+	 * @param args
+	 *            the arguments
+	 * @throws Exception
+	 *             the exception
 	 */
 	public static void main(String[] args) throws Exception {
 		if (args.length != 2) {
@@ -89,9 +93,9 @@ public class CBserver implements IMessage {
 			new CBserver(args[0], args[1]).run();
 		}
 	}
-	
+
 	/**
-	 *  Run until keypressd.
+	 * Run until keypressd.
 	 */
 	void run() {
 		try {
@@ -100,11 +104,8 @@ public class CBserver implements IMessage {
 			udpserver = new UdpServer(this);
 			udpserver.start();
 			WampClientBuilder builder = new WampClientBuilder();
-			builder.withConnectorProvider(connectorProvider)
-				.withUri(url)
-				.withRealm(realm)
-				.withInfiniteReconnects()
-				.withReconnectInterval(1, TimeUnit.SECONDS);
+			builder.withConnectorProvider(connectorProvider).withUri(url).withRealm(realm).withInfiniteReconnects()
+					.withReconnectInterval(1, TimeUnit.SECONDS);
 
 			client = builder.build();
 			action = new ActionImpl(client, rxScheduler);
@@ -116,11 +117,9 @@ public class CBserver implements IMessage {
 			LOG.error(ex.getMessage(), ex);
 		}
 
-		client.statusChanged()
-			.observeOn(rxScheduler)
-			.subscribe(action, new Action1<Throwable>() {
-			
-				@Override
+		client.statusChanged().observeOn(rxScheduler).subscribe(action, new Action1<Throwable>() {
+
+			@Override
 			public void call(Throwable t) {
 				LOG.info("Session ended with error " + t);
 			}
@@ -130,7 +129,7 @@ public class CBserver implements IMessage {
 				LOG.info("Session ended normally");
 			}
 		});
-		
+
 		client.open();
 
 		waitUntilKeypressed();
@@ -148,20 +147,20 @@ public class CBserver implements IMessage {
 		}
 
 	}
-	
-	 /**
- 	 * Wait until keypressed.
- 	 */
- 	private void waitUntilKeypressed() {
-	        try {
-	            System.in.read();
-	            while (System.in.available() > 0) {
-	                System.in.read();
-	            }
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	    }
+
+	/**
+	 * Wait until keypressed.
+	 */
+	private void waitUntilKeypressed() {
+		try {
+			System.in.read();
+			while (System.in.available() > 0) {
+				System.in.read();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Start router.
@@ -202,7 +201,8 @@ public class CBserver implements IMessage {
 	/**
 	 * Sets the url.
 	 *
-	 * @param url the new url
+	 * @param url
+	 *            the new url
 	 */
 	public void setUrl(String url) {
 		this.url = url;
@@ -220,7 +220,8 @@ public class CBserver implements IMessage {
 	/**
 	 * Sets the realm.
 	 *
-	 * @param realm the new realm
+	 * @param realm
+	 *            the new realm
 	 */
 	public void setRealm(String realm) {
 		this.realm = realm;
@@ -238,13 +239,16 @@ public class CBserver implements IMessage {
 	/**
 	 * Sets the s_uri.
 	 *
-	 * @param s_uri the new s_uri
+	 * @param s_uri
+	 *            the new s_uri
 	 */
 	public void setS_uri(String s_uri) {
 		this.s_uri = s_uri;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.sdorn.xpserver.IMessage#MessageEvent(com.sdorn.xpserver.Message)
 	 */
 	@Override

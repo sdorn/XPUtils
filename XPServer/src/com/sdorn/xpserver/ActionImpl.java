@@ -64,6 +64,7 @@ public class ActionImpl implements Action1<WampClient.State> {
         LOG.info("Session status changed to " + t1);
 
         if (t1 instanceof WampClient.ConnectedState) {
+        	LOG.info("Client: "+client.toString());
             // SUBSCRIBE to a topic and receive events
             //onHelloSubscription = client.makeSubscription("com.sdorn.xppos", String.class)
             onHelloSubscription = client.makeSubscription(getSubString(), Message.class)
